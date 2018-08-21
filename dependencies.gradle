@@ -1,0 +1,13 @@
+ext {
+  versions = [rxKotlin : '2.2.0',
+              rxBinding   : '2.1.1',
+              rxAndroid: '2.0.1',]
+
+  rxJava = [
+            rxKotlin: "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
+            rxAndroid : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+            rxBindings: "com.jakewharton.rxbinding2:rxbinding:2.1.1"
+  ]
+
+  rxJavaLibs = rxJava.values()
+}
