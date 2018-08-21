@@ -9,8 +9,8 @@ class SearchMovie(
   private val moviesRemoteRepository: MoviesRemoteRepository
 ) : UseCase<SearchMovie.Params, Single<List<Movie>>>() {
 
-  override fun execute(params: Params): Single<List<Movie>> =
-    moviesRemoteRepository.search(params.searchTerm, params.page)
+  override fun execute(params: Params?): Single<List<Movie>> =
+    moviesRemoteRepository.search(params!!.searchTerm, params.page)
 
   data class Params(val searchTerm: String, val page: Int = 0)
 }

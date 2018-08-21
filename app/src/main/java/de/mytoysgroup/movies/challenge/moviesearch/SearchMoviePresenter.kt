@@ -13,12 +13,16 @@ class SearchMoviePresenter(
 
   override fun resume(view: View) {
     super.resume(view)
-    disposables.add(view.searchStream
+    subscribeToSearchStream()
+  }
+
+  private fun subscribeToSearchStream() {
+    disposables.add(view!!.searchStream
       .flatMap { searchMovie.execute(SearchMovie.Params(it)).toObservable() }
       .compose(observableSchedulers())
       .subscribe(
-        { view.showMovies(it) },
-        { view.showError(it) }))
+        { view?.showMovies(it) },
+        { view?.showError(it) }))
   }
 
   interface View : BasePresenter.View {
