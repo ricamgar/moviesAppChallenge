@@ -1,13 +1,22 @@
 ext {
-  versions = [rxKotlin : '2.2.0',
-              rxBinding   : '2.1.1',
-              rxAndroid: '2.0.1',]
+  versions = [rxKotlin      : '2.2.0',
+              rxBinding     : '2.1.1',
+              rxAndroid     : '2.0.1',
+              kodein        : '5.0.0',
+              mockitoKotlin : '1.5.0',
+              mockitoVersion: '2.8.9']
 
-  rxJava = [
-            rxKotlin: "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
+  rxJava = [rxKotlin  : "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
             rxAndroid : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
-            rxBindings: "com.jakewharton.rxbinding2:rxbinding:2.1.1"
-  ]
+            rxBindings: "com.jakewharton.rxbinding2:rxbinding:2.1.1"]
+
+  kodeIn = [core   : "org.kodein.di:kodein-di-generic-jvm:$versions.kodein",
+            android: "org.kodein.di:kodein-di-framework-android:$versions.kodein"]
+
+  mockito = [mockitoKotlin: "com.nhaarman:mockito-kotlin:$versions.mockitoKotlin",
+             mockitoCore  : "org.mockito:mockito-core:$versions.mockitoVersion"]
 
   rxJavaLibs = rxJava.values()
+  kodeInLibs = kodeIn.values()
+  mockitoLibs = mockito.values()
 }

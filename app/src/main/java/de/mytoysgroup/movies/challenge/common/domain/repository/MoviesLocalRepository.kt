@@ -1,6 +1,6 @@
-package de.mytoysgroup.movies.challenge.domain.repository
+package de.mytoysgroup.movies.challenge.common.domain.repository
 
-import de.mytoysgroup.movies.challenge.domain.model.Movie
+import de.mytoysgroup.movies.challenge.common.domain.model.Movie
 import io.reactivex.Completable
 import io.reactivex.Single
 
