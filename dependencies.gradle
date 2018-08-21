@@ -6,7 +6,8 @@ ext {
               moshi        : "1.5.0",
               retrofit     : '2.3.0',
               mockitoKotlin : '1.5.0',
-              mockitoVersion: '2.8.9']
+              mockitoVersion: '2.8.9',
+              mockWebServer: '3.6.0']
 
   rxJava = [rxKotlin  : "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
             rxAndroid : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
@@ -27,6 +28,8 @@ ext {
 
   mockito = [mockitoKotlin: "com.nhaarman:mockito-kotlin:$versions.mockitoKotlin",
              mockitoCore  : "org.mockito:mockito-core:$versions.mockitoVersion"]
+
+  mockWebServer = "com.squareup.okhttp3:mockwebserver:$versions.mockWebServer"
 
   rxJavaLibs = rxJava.values()
   kodeInLibs = kodeIn.values()
