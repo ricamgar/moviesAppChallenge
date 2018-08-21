@@ -21,11 +21,18 @@ class WishlistPresenter(
       .doOnSubscribe { view?.setLoadingVisivility(true) }
       .doFinally { view?.setLoadingVisivility(false) }
       .subscribe(
-        { view?.showMovies(it) },
+        {
+          if (it.isEmpty()) {
+            view?.showEmpty()
+          } else {
+            view?.showMovies(it)
+          }
+        },
         { view?.showError(it) }))
   }
 
   interface View : BasePresenter.View {
     fun showMovies(movies: List<Movie>)
+    fun showEmpty()
   }
 }
