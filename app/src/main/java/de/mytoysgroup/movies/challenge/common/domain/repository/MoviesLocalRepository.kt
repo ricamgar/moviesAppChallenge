@@ -7,4 +7,6 @@ import io.reactivex.Single
 interface MoviesLocalRepository {
   fun getAll(): Single<List<Movie>>
   fun save(movie: Movie): Completable
+  fun remove(movie: Movie): Completable
+  fun removeAll(): Completable
 }
