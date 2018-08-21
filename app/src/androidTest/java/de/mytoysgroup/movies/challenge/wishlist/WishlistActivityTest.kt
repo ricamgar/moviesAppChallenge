@@ -3,20 +3,24 @@ package de.mytoysgroup.movies.challenge.wishlist
 import android.content.Intent
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.intent.Intents.intended
+import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.matcher.ViewMatchers.withText
+import android.support.test.espresso.matcher.ViewMatchers.*
 import com.nhaarman.mockito_kotlin.whenever
 import de.mytoysgroup.movies.challenge.R
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
+import de.mytoysgroup.movies.challenge.moviesearch.SearchMovieActivity
 import de.mytoysgroup.movies.challenge.util.OverridesRule
 import de.mytoysgroup.movies.challenge.util.recyclerview.RecyclerViewInteraction
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -67,6 +71,18 @@ class WishlistActivityTest {
     activityRule.launchActivity(Intent())
 
     onView(withText(context.getString(R.string.no_wishlist))).check(matches(isDisplayed()))
+  }
+
+  @Test
+  fun shouldOpenSearchScreenOnSearchPressed() {
+    whenever(getWishlist.execute()).thenReturn(Single.just(emptyList()))
+
+    activityRule.launchActivity(Intent())
+    onView(withId(R.id.fab)).perform(click())
+
+    intended(allOf(
+      IntentMatchers.hasComponent(SearchMovieActivity::class.qualifiedName)
+    ))
   }
 
   companion object {

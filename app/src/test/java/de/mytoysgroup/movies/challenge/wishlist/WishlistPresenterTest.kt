@@ -6,6 +6,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import de.mytoysgroup.movies.challenge.common.di.appModule
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
 import de.mytoysgroup.movies.challenge.common.domain.repository.MoviesLocalRepository
+import de.mytoysgroup.movies.challenge.common.navigator.Navigator
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -29,6 +30,8 @@ class WishlistPresenterTest : KodeinAware {
   @Mock
   lateinit var localRepository: MoviesLocalRepository
   @Mock
+  lateinit var navigator: Navigator
+  @Mock
   lateinit var view: WishlistPresenter.View
 
   override val kodein = Kodein.lazy {
@@ -36,6 +39,7 @@ class WishlistPresenterTest : KodeinAware {
     import(wishlistModule())
 
     bind<MoviesLocalRepository>(overrides = true) with singleton { localRepository }
+    bind<Navigator>(overrides = true) with singleton { navigator }
     bind<Scheduler>(tag = "bg", overrides = true) with singleton { Schedulers.trampoline() }
     bind<Scheduler>(tag = "main", overrides = true) with singleton { Schedulers.trampoline() }
   }
@@ -47,6 +51,25 @@ class WishlistPresenterTest : KodeinAware {
     presenter.resume(view)
 
     verify(view).showMovies(movies)
+  }
+
+  @Test
+  fun shouldShowEmptyWhenNoMovies() {
+    whenever(localRepository.getAll()).thenReturn(Single.just(emptyList()))
+
+    presenter.resume(view)
+
+    verify(view).showEmpty()
+  }
+
+  @Test
+  fun shouldOpenSearchWhenButtonClicked() {
+    whenever(localRepository.getAll()).thenReturn(Single.just(emptyList()))
+
+    presenter.resume(view)
+    presenter.onSearchClicked()
+
+    verify(navigator).goToSearch()
   }
 
   companion object {

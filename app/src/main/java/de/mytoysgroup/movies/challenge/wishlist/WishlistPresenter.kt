@@ -1,11 +1,13 @@
 package de.mytoysgroup.movies.challenge.wishlist
 
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
+import de.mytoysgroup.movies.challenge.common.navigator.Navigator
 import de.mytoysgroup.movies.challenge.common.presenter.BasePresenter
 import io.reactivex.Scheduler
 
 class WishlistPresenter(
   private val getWishlist: GetWishlist,
+  private val navigator: Navigator,
   backgroundThread: Scheduler,
   mainThread: Scheduler
 ) : BasePresenter<WishlistPresenter.View>(backgroundThread, mainThread) {
@@ -29,6 +31,10 @@ class WishlistPresenter(
           }
         },
         { view?.showError(it) }))
+  }
+
+  fun onSearchClicked() {
+    navigator.goToSearch()
   }
 
   interface View : BasePresenter.View {

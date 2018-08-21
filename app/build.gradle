@@ -25,7 +25,7 @@ android {
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation supportLibs
-  implementation(picasso){
+  implementation(picasso) {
     exclude group: 'com.android.support', module: 'exifinterface'
   }
 
@@ -33,11 +33,12 @@ dependencies {
   implementation kodeInLibs
   implementation rxJavaLibs
 
+  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
   testImplementation 'junit:junit:4.12'
   testImplementation mockitoLibs
   testImplementation mockWebServer
 
   androidTestImplementation uiTestLibs
-//  androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+  //  androidTestImplementation 'com.android.support.test:runner:1.0.2'
+  //  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

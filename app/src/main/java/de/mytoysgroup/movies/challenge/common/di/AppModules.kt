@@ -7,6 +7,8 @@ import de.mytoysgroup.movies.challenge.common.data.remote.OmdbApi
 import de.mytoysgroup.movies.challenge.common.data.remote.OmdbDataSource
 import de.mytoysgroup.movies.challenge.common.domain.repository.MoviesLocalRepository
 import de.mytoysgroup.movies.challenge.common.domain.repository.MoviesRemoteRepository
+import de.mytoysgroup.movies.challenge.common.navigator.MovieAppNavigator
+import de.mytoysgroup.movies.challenge.common.navigator.Navigator
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -21,6 +23,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 fun appModule(context: Context) = Kodein.Module {
   bind<Context>() with provider { context }
+  bind<Navigator>() with provider { MovieAppNavigator(instance()) }
   bind<Scheduler>(tag = "bg") with singleton { Schedulers.io() }
   bind<Scheduler>(tag = "main") with singleton { AndroidSchedulers.mainThread() }
 

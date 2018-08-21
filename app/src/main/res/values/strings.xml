@@ -1,4 +1,5 @@
 <resources>
   <string name="app_name">MoviesChallenge</string>
   <string name="no_wishlist">You have no movies on your wishlist</string>
+  <string name="title_activity_search_movie">SearchMovieActivity</string>
 </resources>
