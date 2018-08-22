@@ -10,6 +10,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import de.mytoysgroup.movies.challenge.R
 import de.mytoysgroup.movies.challenge.common.di.InjectedActivity
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
+import de.mytoysgroup.movies.challenge.common.util.EndlessRecyclerOnScrollListener
 import de.mytoysgroup.movies.challenge.common.util.visibility
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_search_movie.*
@@ -20,6 +21,7 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
 
   private val presenter: SearchMoviePresenter by instance()
   private val adapter = SearchMovieAdapter()
+  private lateinit var scrollListener: EndlessRecyclerOnScrollListener
 
   override fun activityModule() = Kodein.Module {
     import(searchMovieModule())
@@ -45,19 +47,35 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
 
   private fun setupMoviesResultsList() {
     resultsList.setHasFixedSize(true)
-    resultsList.layoutManager = LinearLayoutManager(this)
+    val linearLayoutManager = LinearLayoutManager(this)
+    resultsList.layoutManager = linearLayoutManager
     resultsList.adapter = adapter
     adapter.onItemClick = ::onMovieClick
+    scrollListener = object : EndlessRecyclerOnScrollListener(linearLayoutManager, 5) {
+      override fun onLoadMore(currentPage: Int) {
+        presenter.nextPage(currentPage)
+        hideKeyboard()
+      }
+    }
+    resultsList.addOnScrollListener(scrollListener)
   }
 
   private fun onMovieClick(id: String) {
     presenter.movieClicked(id)
   }
 
+  private fun resetSearch(it: String) {
+    enableClear(it.isNotEmpty())
+    scrollListener.reset(0, true)
+    adapter.clear()
+    resultsList.scrollToPosition(0)
+    if (it.isNotEmpty()) presenter.nextPage(1)
+  }
+
   override val searchStream: Observable<String>
     get() = RxTextView.afterTextChangeEvents(searchEdit)
       .map { it.editable().toString() }.doOnNext {
-        enableClear(it.isNotEmpty())
+        resetSearch(it)
       }.filter { it.isNotEmpty() }
 
   override val clearStream: Observable<Any>
@@ -70,8 +88,10 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
   }
 
   override fun showEmpty() {
-    empty.visibility(true)
-    resultsList.visibility(false)
+    if (adapter.itemCount == 0) {
+      empty.visibility(true)
+      resultsList.visibility(false)
+    }
   }
 
   override fun setLoadingVisibility(visible: Boolean) {

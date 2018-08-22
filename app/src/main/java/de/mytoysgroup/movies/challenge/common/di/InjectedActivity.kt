@@ -1,8 +1,10 @@
 package de.mytoysgroup.movies.challenge.common.di
 
 import android.app.Activity
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import de.mytoysgroup.movies.challenge.MoviesApp
 import de.mytoysgroup.movies.challenge.common.presenter.BasePresenter
 import org.kodein.di.Kodein
@@ -26,6 +28,11 @@ abstract class InjectedActivity : AppCompatActivity(), KodeinAware, BasePresente
    */
   open fun activityModule() = Kodein.Module {
 
+  }
+
+  fun hideKeyboard() {
+    val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
   }
 
   override fun showError(error: Throwable) {

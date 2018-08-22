@@ -5,6 +5,8 @@ import de.mytoysgroup.movies.challenge.common.navigator.Navigator
 import de.mytoysgroup.movies.challenge.common.presenter.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.functions.BiFunction
+import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class SearchMoviePresenter(
@@ -15,6 +17,8 @@ class SearchMoviePresenter(
   private val mainThread: Scheduler
 ) : BasePresenter<SearchMoviePresenter.View>(backgroundThread, mainThread) {
 
+  private val pageStream = PublishSubject.create<Int>()
+
   override fun resume(view: View) {
     super.resume(view)
     subscribeToSearchStream()
@@ -22,14 +26,17 @@ class SearchMoviePresenter(
   }
 
   private fun subscribeToSearchStream() {
-    disposables.add(view!!.searchStream
+    disposables.add(Observable.combineLatest(
+      view!!.searchStream,
+      pageStream.startWith(1),
+      BiFunction<String, Int, Pair<String, Int>> { t1, t2 -> t1 to t2 })
       .observeOn(mainThread)
       .doOnNext {
         view?.setLoadingVisibility(true)
         view?.enableClear(true)
       }
       .debounce(1, TimeUnit.SECONDS, computationThread)
-      .flatMapSingle { searchMovie.execute(SearchMovie.Params(it)) }
+      .flatMapSingle { searchMovie.execute(SearchMovie.Params(it.first, it.second)) }
       .compose(observableSchedulers())
       .subscribe(
         {
@@ -52,6 +59,10 @@ class SearchMoviePresenter(
 
   fun movieClicked(id: String) {
     navigator.goToDetail(id)
+  }
+
+  fun nextPage(page: Int) {
+    pageStream.onNext(page)
   }
 
   interface View : BasePresenter.View {

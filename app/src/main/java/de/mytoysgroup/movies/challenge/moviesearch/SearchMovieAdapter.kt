@@ -27,8 +27,12 @@ class SearchMovieAdapter : RecyclerView.Adapter<SearchMovieAdapter.ViewHolder>()
   }
 
   fun addMovies(movies: List<Movie>) {
-    this.movies.clear()
     this.movies.addAll(movies)
+    notifyDataSetChanged()
+  }
+
+  fun clear() {
+    this.movies.clear()
     notifyDataSetChanged()
   }
 
