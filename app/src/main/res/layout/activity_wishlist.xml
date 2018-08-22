@@ -52,6 +52,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|end"
       android:layout_margin="@dimen/spacing"
+      android:backgroundTint="@color/colorPrimary"
       app:useCompatPadding="true"
       app:srcCompat="@drawable/ic_search"/>
 
