@@ -47,9 +47,10 @@ class SearchMoviePresenterTest : KodeinAware {
   @Test
   fun showMoviesOnSuccessfulSearch() {
     val searchTerm = "testTerm1"
-    whenever(moviesRemoteRepository.search(searchTerm, 0))
+    whenever(moviesRemoteRepository.search(searchTerm, 1))
       .thenReturn(Single.just(anyMoviesList(searchTerm)))
     whenever(view.searchStream).thenReturn(Observable.just(searchTerm))
+    whenever(view.clearStream).thenReturn(Observable.empty())
 
     presenter.resume(view)
 
@@ -62,6 +63,7 @@ class SearchMoviePresenterTest : KodeinAware {
     whenever(moviesRemoteRepository.search(anyString(), anyInt()))
       .thenReturn(Single.error(error))
     whenever(view.searchStream).thenReturn(Observable.just(""))
+    whenever(view.clearStream).thenReturn(Observable.empty())
 
     presenter.resume(view)
 

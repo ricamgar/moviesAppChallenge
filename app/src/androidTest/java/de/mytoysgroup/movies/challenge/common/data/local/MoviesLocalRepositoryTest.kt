@@ -5,6 +5,7 @@ import android.support.test.runner.AndroidJUnit4
 import de.mytoysgroup.movies.challenge.common.di.appModule
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
 import de.mytoysgroup.movies.challenge.common.domain.repository.MoviesLocalRepository
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,6 +25,11 @@ class MoviesLocalRepositoryTest : KodeinAware {
 
   @Before
   fun setUp() {
+    localRepository.removeAll().blockingAwait()
+  }
+
+  @After
+  fun tearDown() {
     localRepository.removeAll().blockingAwait()
   }
 

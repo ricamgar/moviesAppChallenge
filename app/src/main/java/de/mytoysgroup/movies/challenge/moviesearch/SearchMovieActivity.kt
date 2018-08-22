@@ -47,11 +47,11 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
     resultsList.setHasFixedSize(true)
     resultsList.layoutManager = LinearLayoutManager(this)
     resultsList.adapter = adapter
-    adapter.onItemClick = ::onItemClick
+    adapter.onItemClick = ::onMovieClick
   }
 
-  private fun onItemClick(id: String) {
-
+  private fun onMovieClick(id: String) {
+    presenter.movieClicked(id)
   }
 
   override val searchStream: Observable<String>

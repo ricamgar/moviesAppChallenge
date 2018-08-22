@@ -11,7 +11,7 @@ fun searchMovieModule() = Kodein.Module {
   bind<SearchMovie>() with provider { SearchMovie(instance()) }
   bind<Scheduler>(tag = "computation") with provider { Schedulers.computation() }
   bind<SearchMoviePresenter>() with provider {
-    SearchMoviePresenter(instance(), instance(tag = "computation"),
+    SearchMoviePresenter(instance(), instance(), instance(tag = "computation"),
       instance(tag = "bg"), instance(tag = "main"))
   }
 }

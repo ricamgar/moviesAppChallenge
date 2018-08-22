@@ -31,6 +31,10 @@
           android:name="android.support.PARENT_ACTIVITY"
           android:value="de.mytoysgroup.movies.challenge.wishlist.WishlistActivity"/>
     </activity>
+    <activity
+        android:name=".detail.MovieDetailActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
   </application>
 
 </manifest>

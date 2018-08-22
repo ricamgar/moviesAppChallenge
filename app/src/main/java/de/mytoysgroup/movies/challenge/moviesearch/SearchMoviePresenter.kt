@@ -1,6 +1,7 @@
 package de.mytoysgroup.movies.challenge.moviesearch
 
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
+import de.mytoysgroup.movies.challenge.common.navigator.Navigator
 import de.mytoysgroup.movies.challenge.common.presenter.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -8,9 +9,10 @@ import java.util.concurrent.TimeUnit
 
 class SearchMoviePresenter(
   private val searchMovie: SearchMovie,
+  private val navigator: Navigator,
   private val computationThread: Scheduler,
   backgroundThread: Scheduler,
-  mainThread: Scheduler
+  private val mainThread: Scheduler
 ) : BasePresenter<SearchMoviePresenter.View>(backgroundThread, mainThread) {
 
   override fun resume(view: View) {
@@ -21,6 +23,7 @@ class SearchMoviePresenter(
 
   private fun subscribeToSearchStream() {
     disposables.add(view!!.searchStream
+      .observeOn(mainThread)
       .doOnNext {
         view?.setLoadingVisibility(true)
         view?.enableClear(true)
@@ -28,7 +31,6 @@ class SearchMoviePresenter(
       .debounce(1, TimeUnit.SECONDS, computationThread)
       .flatMapSingle { searchMovie.execute(SearchMovie.Params(it)) }
       .compose(observableSchedulers())
-      .doAfterNext { view?.setLoadingVisibility(false) }
       .subscribe(
         {
           if (it.isEmpty()) {
@@ -36,6 +38,7 @@ class SearchMoviePresenter(
           } else {
             view?.showMovies(it)
           }
+          view?.setLoadingVisibility(false)
         },
         { view?.showError(it) }))
   }
@@ -45,6 +48,10 @@ class SearchMoviePresenter(
       .subscribe {
         view?.clearResults()
       })
+  }
+
+  fun movieClicked(id: String) {
+    navigator.goToDetail(id)
   }
 
   interface View : BasePresenter.View {
