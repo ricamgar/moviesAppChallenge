@@ -35,12 +35,12 @@ class MovieDetailActivity : InjectedActivity(), MovieDetailPresenter.View {
 
   override fun onResume() {
     super.onResume()
-    presenter.resume(this)
+    presenter.attachView(this)
   }
 
   override fun onPause() {
     super.onPause()
-    presenter.pause()
+    presenter.detachView()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

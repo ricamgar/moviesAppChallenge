@@ -19,8 +19,8 @@ class SearchMoviePresenter(
 
   private val pageStream = PublishSubject.create<Int>()
 
-  override fun resume(view: View) {
-    super.resume(view)
+  override fun attachView(view: View) {
+    super.attachView(view)
     subscribeToSearchStream()
     subscribeToClearClicked()
   }
@@ -30,7 +30,7 @@ class SearchMoviePresenter(
       view!!.searchStream,
       pageStream.startWith(1),
       BiFunction<String, Int, Pair<String, Int>> { t1, t2 -> t1 to t2 })
-      .observeOn(mainThread)
+      .subscribeOn(mainThread)
       .doOnNext {
         view?.setLoadingVisibility(true)
         view?.enableClear(true)

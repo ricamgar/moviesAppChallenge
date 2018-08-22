@@ -16,8 +16,8 @@ class MovieDetailPresenter(
   mainThread: Scheduler
 ) : BasePresenter<MovieDetailPresenter.View>(backgroundThread, mainThread) {
 
-  override fun resume(view: View) {
-    super.resume(view)
+  override fun attachView(view: View) {
+    super.attachView(view)
     getMovieDetail()
   }
 

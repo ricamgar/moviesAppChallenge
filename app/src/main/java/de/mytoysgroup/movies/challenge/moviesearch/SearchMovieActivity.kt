@@ -33,16 +33,12 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     setupMoviesResultsList()
+    presenter.attachView(this)
   }
 
-  override fun onResume() {
-    super.onResume()
-    presenter.resume(this)
-  }
-
-  override fun onPause() {
-    super.onPause()
-    presenter.pause()
+  override fun onDestroy() {
+    super.onDestroy()
+    presenter.detachView()
   }
 
   private fun setupMoviesResultsList() {

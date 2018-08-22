@@ -52,7 +52,7 @@ class MovieDetailPresenterTest : KodeinAware {
     whenever(moviesRemoteRepository.get(id)).thenReturn(Single.just(anyMovie))
     whenever(moviesLocalRepository.getAll()).thenReturn(Single.just(listOf(anotherMovie)))
 
-    presenter.resume(view)
+    presenter.attachView(view)
 
     verify(view).showDetails(anyMovie, false)
   }
@@ -62,7 +62,7 @@ class MovieDetailPresenterTest : KodeinAware {
     whenever(moviesRemoteRepository.get(id)).thenReturn(Single.just(anyMovie))
     whenever(moviesLocalRepository.getAll()).thenReturn(Single.just(listOf(anyMovie)))
 
-    presenter.resume(view)
+    presenter.attachView(view)
 
     verify(view).showDetails(anyMovie, true)
   }
@@ -73,7 +73,7 @@ class MovieDetailPresenterTest : KodeinAware {
     whenever(moviesLocalRepository.getAll()).thenReturn(Single.just(listOf(anotherMovie)))
     whenever(moviesLocalRepository.save(any())).thenReturn(Completable.complete())
 
-    presenter.resume(view)
+    presenter.attachView(view)
     presenter.addClicked(anyMovie)
 
     verify(view).showDetails(anyMovie, false)
@@ -86,7 +86,7 @@ class MovieDetailPresenterTest : KodeinAware {
     whenever(moviesLocalRepository.getAll()).thenReturn(Single.just(listOf(anyMovie)))
     whenever(moviesLocalRepository.remove(any())).thenReturn(Completable.complete())
 
-    presenter.resume(view)
+    presenter.attachView(view)
     presenter.removeClicked(anyMovie)
 
     verify(view).showDetails(anyMovie, true)

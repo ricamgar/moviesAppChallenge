@@ -15,11 +15,11 @@ abstract class BasePresenter<T : BasePresenter.View>(
 
   var view: T? = null
 
-  open fun resume(view: T) {
+  open fun attachView(view: T) {
     this.view = view
   }
 
-  open fun pause() {
+  open fun detachView() {
     disposables.clear()
     this.view = null
   }

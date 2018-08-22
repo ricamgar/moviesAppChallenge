@@ -12,8 +12,12 @@ class WishlistPresenter(
   mainThread: Scheduler
 ) : BasePresenter<WishlistPresenter.View>(backgroundThread, mainThread) {
 
-  override fun resume(view: View) {
-    super.resume(view)
+  override fun attachView(view: View) {
+    super.attachView(view)
+    getWishlist()
+  }
+
+  fun resume() {
     getWishlist()
   }
 

@@ -41,6 +41,7 @@ class SearchMoviePresenterTest : KodeinAware {
     bind<MoviesRemoteRepository>(overrides = true) with singleton { moviesRemoteRepository }
     bind<Scheduler>(tag = "bg", overrides = true) with singleton { Schedulers.trampoline() }
     bind<Scheduler>(tag = "main", overrides = true) with singleton { Schedulers.trampoline() }
+    bind<Scheduler>(tag = "computation", overrides = true) with singleton { Schedulers.trampoline() }
   }
 
   @Test
@@ -51,7 +52,7 @@ class SearchMoviePresenterTest : KodeinAware {
     whenever(view.searchStream).thenReturn(Observable.just(searchTerm))
     whenever(view.clearStream).thenReturn(Observable.empty())
 
-    presenter.resume(view)
+    presenter.attachView(view)
 
     verify(view).showMovies(anyMoviesList(searchTerm))
   }
@@ -64,7 +65,7 @@ class SearchMoviePresenterTest : KodeinAware {
     whenever(view.searchStream).thenReturn(Observable.just(""))
     whenever(view.clearStream).thenReturn(Observable.empty())
 
-    presenter.resume(view)
+    presenter.attachView(view)
 
     verify(view).showError(error)
   }

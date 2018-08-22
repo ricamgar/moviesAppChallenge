@@ -2,7 +2,7 @@ package de.mytoysgroup.movies.challenge.wishlist
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import de.mytoysgroup.movies.challenge.R
 import de.mytoysgroup.movies.challenge.common.di.InjectedActivity
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
@@ -27,21 +27,22 @@ class WishlistActivity : InjectedActivity(), WishlistPresenter.View {
     setupMoviesWishlist()
 
     fab.setOnClickListener { presenter.onSearchClicked() }
+    presenter.attachView(this)
   }
 
   override fun onResume() {
     super.onResume()
-    presenter.resume(this)
+    presenter.resume()
   }
 
-  override fun onPause() {
-    super.onPause()
-    presenter.pause()
+  override fun onDestroy() {
+    super.onDestroy()
+    presenter.detachView()
   }
 
   private fun setupMoviesWishlist() {
     moviesList.setHasFixedSize(true)
-    moviesList.layoutManager = LinearLayoutManager(this)
+    moviesList.layoutManager = GridLayoutManager(this, 2)
     moviesList.adapter = adapter
     adapter.onItemClick = ::onMovieClicked
   }

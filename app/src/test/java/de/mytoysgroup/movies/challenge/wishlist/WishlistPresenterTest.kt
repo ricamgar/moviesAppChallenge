@@ -48,7 +48,7 @@ class WishlistPresenterTest : KodeinAware {
   fun shouldShowWishlistMovies() {
     whenever(localRepository.getAll()).thenReturn(Single.just(movies))
 
-    presenter.resume(view)
+    presenter.attachView(view)
 
     verify(view).showMovies(movies)
   }
@@ -57,7 +57,7 @@ class WishlistPresenterTest : KodeinAware {
   fun shouldShowEmptyWhenNoMovies() {
     whenever(localRepository.getAll()).thenReturn(Single.just(emptyList()))
 
-    presenter.resume(view)
+    presenter.attachView(view)
 
     verify(view).showEmpty()
   }
@@ -66,7 +66,7 @@ class WishlistPresenterTest : KodeinAware {
   fun shouldOpenSearchWhenButtonClicked() {
     whenever(localRepository.getAll()).thenReturn(Single.just(emptyList()))
 
-    presenter.resume(view)
+    presenter.attachView(view)
     presenter.onSearchClicked()
 
     verify(navigator).goToSearch()
