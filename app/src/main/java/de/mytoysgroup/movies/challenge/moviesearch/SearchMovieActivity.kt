@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import de.mytoysgroup.movies.challenge.R
@@ -43,11 +43,11 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
 
   private fun setupMoviesResultsList() {
     resultsList.setHasFixedSize(true)
-    val linearLayoutManager = LinearLayoutManager(this)
-    resultsList.layoutManager = linearLayoutManager
+    val layoutManager = GridLayoutManager(this, 2)
+    resultsList.layoutManager = layoutManager
     resultsList.adapter = adapter
     adapter.onItemClick = ::onMovieClick
-    scrollListener = object : EndlessRecyclerOnScrollListener(linearLayoutManager, 5) {
+    scrollListener = object : EndlessRecyclerOnScrollListener(layoutManager, 5) {
       override fun onLoadMore(currentPage: Int) {
         presenter.nextPage(currentPage)
         hideKeyboard()

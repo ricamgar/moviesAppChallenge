@@ -16,7 +16,7 @@ class SearchMovieAdapter : RecyclerView.Adapter<SearchMovieAdapter.ViewHolder>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val view = LayoutInflater.from(parent.context)
-      .inflate(R.layout.item_movie_result, parent, false)
+      .inflate(R.layout.item_movie, parent, false)
     return ViewHolder(view, onItemClick)
   }
 
