@@ -17,10 +17,11 @@
       android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/poster"
+        android:id="@+id/posterImg"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
+        android:transitionName="poster"
         android:src="@drawable/ic_no_poster"/>
 
     <LinearLayout
@@ -30,7 +31,7 @@
         android:orientation="vertical">
 
       <TextView
-          android:id="@+id/title"
+          android:id="@+id/titleTxt"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:fontFamily="sans-serif-medium"
@@ -41,7 +42,7 @@
           tools:text="Indiana Jones"/>
 
       <TextView
-          android:id="@+id/year"
+          android:id="@+id/yearTxt"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:fontFamily="sans-serif-medium"

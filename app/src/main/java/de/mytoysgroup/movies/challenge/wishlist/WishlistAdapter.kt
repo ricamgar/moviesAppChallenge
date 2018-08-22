@@ -39,9 +39,9 @@ class WishlistAdapter : RecyclerView.Adapter<WishlistAdapter.ViewHolder>() {
     fun bind(movie: Movie) {
       with(movie) {
         itemView.cell.setOnClickListener { onItemClick?.invoke(movie.id) }
-        itemView.poster.load(poster, R.drawable.ic_no_poster)
-        itemView.title.text = title
-        itemView.year.text = year
+        itemView.posterImg.load(poster, R.drawable.ic_no_poster)
+        itemView.titleTxt.text = title
+        itemView.yearTxt.text = year
       }
     }
   }
