@@ -12,6 +12,8 @@ import de.mytoysgroup.movies.challenge.common.navigator.Navigator
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -28,9 +30,24 @@ fun appModule(context: Context) = Kodein.Module {
   bind<Scheduler>(tag = "main") with singleton { AndroidSchedulers.mainThread() }
 
   bind<Moshi>() with singleton { Moshi.Builder().build() }
+  bind<OkHttpClient>() with singleton {
+    val requestInterceptor = Interceptor {
+      val url = it.request().url()
+        .newBuilder()
+        .addQueryParameter("apikey", "d8ebe432")
+        .build()
+      val request = it.request().newBuilder().url(url).build()
+      it.proceed(request)
+    }
+
+    OkHttpClient.Builder()
+      .addInterceptor(requestInterceptor)
+      .build()
+  }
   bind<OmdbApi>() with singleton {
     Retrofit.Builder()
       .baseUrl("http://www.omdbapi.com")
+      .client(instance())
       .addConverterFactory(MoshiConverterFactory.create(instance()))
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .build()

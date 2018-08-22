@@ -9,11 +9,9 @@ interface OmdbApi {
   @GET("/")
   fun search(
     @Query("s") searchTerm: String,
-    @Query("page") page: Int = 1,
-    @Query("apikey") apikey: String = "d8ebe432"): Single<SearchResponse>
+    @Query("page") page: Int = 1): Single<SearchResponse>
 
   @GET("/")
   fun getMovie(
-    @Query("i") id: String,
-    @Query("apikey") apikey: String = "d8ebe432"): Single<Movie>
+    @Query("i") id: String): Single<Movie>
 }
