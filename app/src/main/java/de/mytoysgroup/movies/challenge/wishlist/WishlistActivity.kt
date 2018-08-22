@@ -27,6 +27,7 @@ class WishlistActivity : InjectedActivity(), WishlistPresenter.View {
     setupMoviesWishlist()
 
     fab.setOnClickListener { presenter.onSearchClicked() }
+    searchBtn.setOnClickListener { presenter.onSearchClicked() }
     presenter.attachView(this)
   }
 

@@ -4,4 +4,5 @@
   <string name="no_movies">No hay películas con esas palabras</string>
   <string name="cast">Protagonistas:</string>
   <string name="director">Director:</string>
+  <string name="search_movie">Buscar películas</string>
 </resources>
