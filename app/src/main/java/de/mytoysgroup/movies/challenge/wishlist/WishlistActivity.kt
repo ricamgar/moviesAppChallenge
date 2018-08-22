@@ -43,11 +43,11 @@ class WishlistActivity : InjectedActivity(), WishlistPresenter.View {
     moviesList.setHasFixedSize(true)
     moviesList.layoutManager = LinearLayoutManager(this)
     moviesList.adapter = adapter
-    adapter.onItemClick = ::onItemClick
+    adapter.onItemClick = ::onMovieClicked
   }
 
-  private fun onItemClick(id: String) {
-
+  private fun onMovieClicked(id: String) {
+    presenter.movieClicked(id)
   }
 
   override fun showEmpty() {

@@ -38,10 +38,10 @@ class SharedPreferencesDataSource(
 
   override fun remove(movie: Movie): Completable {
     return getAll()
-      .map {
-        val movies = it.toMutableList()
-        movies.remove(movie)
-        sharedPreferences.set("favorites", moviesAdapter.toJson(movies))
+      .map { movies ->
+        val mutableList = movies.toMutableList()
+        mutableList.removeAll { it.id == movie.id }
+        sharedPreferences.set("favorites", moviesAdapter.toJson(mutableList))
       }.toCompletable()
   }
 

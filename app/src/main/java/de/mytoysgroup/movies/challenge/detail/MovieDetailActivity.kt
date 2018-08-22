@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import de.mytoysgroup.movies.challenge.R
 import de.mytoysgroup.movies.challenge.common.di.InjectedActivity
@@ -52,9 +53,29 @@ class MovieDetailActivity : InjectedActivity(), MovieDetailPresenter.View {
     return super.onOptionsItemSelected(item)
   }
 
-  override fun showDetails(movie: Movie) {
-    toolbarLayout.title = movie.title
-    poster.load(movie.poster, R.drawable.ic_no_poster)
+  override fun showDetails(movie: Movie, isFavorite: Boolean) {
+    with(toolbarLayout) {
+      title = movie.title
+      setExpandedTitleColor(ContextCompat.getColor(this@MovieDetailActivity, android.R.color.transparent))
+      setCollapsedTitleTextColor(ContextCompat.getColor(this@MovieDetailActivity, android.R.color.white))
+    }
+
+    with(movie) {
+      movieTxt.text = title
+      posterImg.load(poster, R.drawable.ic_no_poster)
+      yearTxt.text = year
+      durationTxt.text = runtime
+      countryTxt.text = country
+      plotTxt.text = plot
+      actorsTxt.text = actors
+      directorTxt.text = director
+    }
+
+    fab.isActivated = isFavorite
+    fab.setOnClickListener {
+      if (isFavorite) presenter.removeClicked(movie)
+      else presenter.addClicked(movie)
+    }
   }
 
   override fun setLoadingVisibility(visible: Boolean) {

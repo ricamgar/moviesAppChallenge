@@ -1,11 +1,13 @@
 package de.mytoysgroup.movies.challenge.common.data.local
 
+import android.preference.PreferenceManager
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import de.mytoysgroup.movies.challenge.common.di.appModule
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
 import de.mytoysgroup.movies.challenge.common.domain.repository.MoviesLocalRepository
 import org.junit.After
+import org.junit.AfterClass
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -86,5 +88,13 @@ class MoviesLocalRepositoryTest : KodeinAware {
       id = "456",
       poster = "http://def"
     )
+
+    @AfterClass
+    @JvmStatic
+    fun tearDownClass() {
+      PreferenceManager
+        .getDefaultSharedPreferences(InstrumentationRegistry.getContext())
+        .edit().clear()
+    }
   }
 }

@@ -9,4 +9,6 @@ data class Movie(
   @field:Json(name = "Poster") val poster: String,
   @field:Json(name = "Director") val director: String = "",
   @field:Json(name = "Actors") val actors: String = "",
-  @field:Json(name = "Plot") val plot: String = "")
+  @field:Json(name = "Plot") val plot: String = "",
+  @field:Json(name = "Runtime") val runtime: String = "",
+  @field:Json(name = "Country") val country: String = "")

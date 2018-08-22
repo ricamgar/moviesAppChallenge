@@ -2,4 +2,6 @@
 <resources>
   <string name="no_wishlist">Aún no tienes películas en tu lista</string>
   <string name="no_movies">No hay películas con esas palabras</string>
+  <string name="cast">Protagonistas:</string>
+  <string name="director">Director:</string>
 </resources>

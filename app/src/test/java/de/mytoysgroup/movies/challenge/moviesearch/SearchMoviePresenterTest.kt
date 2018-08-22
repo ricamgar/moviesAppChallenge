@@ -25,11 +25,10 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class SearchMoviePresenterTest : KodeinAware {
 
-  val presenter: SearchMoviePresenter by instance()
+  private val presenter: SearchMoviePresenter by instance()
 
   @Mock
   lateinit var context: Context
-
   @Mock
   lateinit var moviesRemoteRepository: MoviesRemoteRepository
   @Mock

@@ -2,24 +2,19 @@ package de.mytoysgroup.movies.challenge.moviesearch
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.typeText
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.ViewMatchers.*
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.whenever
 import de.mytoysgroup.movies.challenge.R
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
-import de.mytoysgroup.movies.challenge.detail.MovieDetailActivity
 import de.mytoysgroup.movies.challenge.util.OverridesRule
 import de.mytoysgroup.movies.challenge.util.recyclerview.RecyclerViewInteraction.onRecyclerView
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import org.hamcrest.CoreMatchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -62,20 +57,6 @@ class SearchMovieActivityTest {
       .check { movie, view, e ->
         matches(hasDescendant(withText("Title ${movie.id}"))).check(view, e)
       }
-  }
-
-  @Test
-  fun shouldOpenDetailScreenOnMoviePressed() {
-    whenever(searchMovie.execute(any())).thenReturn(Single.just(movies))
-
-    activityRule.launchActivity(Intent())
-    onView(withId(R.id.searchEdit)).perform(typeText("a"))
-    onView(withText("Title 1")).perform(click())
-
-    Intents.intended(allOf(
-      IntentMatchers.hasComponent(MovieDetailActivity::class.qualifiedName),
-      IntentMatchers.hasExtra("ID_EXTRA", "1")
-    ))
   }
 
   companion object {

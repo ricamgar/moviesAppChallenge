@@ -37,6 +37,10 @@ class WishlistPresenter(
     navigator.goToSearch()
   }
 
+  fun movieClicked(id: String) {
+    navigator.goToDetail(id)
+  }
+
   interface View : BasePresenter.View {
     fun showMovies(movies: List<Movie>)
     fun showEmpty()
