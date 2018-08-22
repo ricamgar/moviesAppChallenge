@@ -34,7 +34,7 @@ abstract class BasePresenter<T : BasePresenter.View>(
     CompletableTransformer { single -> single.subscribeOn(backgroundThread).observeOn(mainThread) }
 
   interface View {
-    fun setLoadingVisivility(visible: Boolean)
+    fun setLoadingVisibility(visible: Boolean)
     fun showError(error: Throwable)
   }
 }

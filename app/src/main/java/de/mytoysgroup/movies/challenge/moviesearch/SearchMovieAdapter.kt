@@ -1,4 +1,4 @@
-package de.mytoysgroup.movies.challenge.wishlist
+package de.mytoysgroup.movies.challenge.moviesearch
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,14 +9,14 @@ import de.mytoysgroup.movies.challenge.common.domain.model.Movie
 import de.mytoysgroup.movies.challenge.common.util.load
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class WishlistAdapter : RecyclerView.Adapter<WishlistAdapter.ViewHolder>() {
+class SearchMovieAdapter : RecyclerView.Adapter<SearchMovieAdapter.ViewHolder>() {
 
   private val movies = mutableListOf<Movie>()
   var onItemClick: ((String) -> Unit)? = null
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val view = LayoutInflater.from(parent.context)
-      .inflate(R.layout.item_movie, parent, false)
+      .inflate(R.layout.item_movie_result, parent, false)
     return ViewHolder(view, onItemClick)
   }
 

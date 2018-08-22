@@ -20,8 +20,8 @@ class WishlistPresenter(
   private fun getWishlist() {
     disposables.add(getWishlist.execute()
       .compose(singleSchedulers())
-      .doOnSubscribe { view?.setLoadingVisivility(true) }
-      .doFinally { view?.setLoadingVisivility(false) }
+      .doOnSubscribe { view?.setLoadingVisibility(true) }
+      .doFinally { view?.setLoadingVisibility(false) }
       .subscribe(
         {
           if (it.isEmpty()) {

@@ -61,7 +61,7 @@ class WishlistActivity : InjectedActivity(), WishlistPresenter.View {
     moviesList.visibility(true)
   }
 
-  override fun setLoadingVisivility(visible: Boolean) {
+  override fun setLoadingVisibility(visible: Boolean) {
     loading.visibility(visible)
   }
 

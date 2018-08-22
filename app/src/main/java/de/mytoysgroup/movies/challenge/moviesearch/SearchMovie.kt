@@ -12,5 +12,5 @@ class SearchMovie(
   override fun execute(params: Params?): Single<List<Movie>> =
     moviesRemoteRepository.search(params!!.searchTerm, params.page)
 
-  data class Params(val searchTerm: String, val page: Int = 0)
+  data class Params(val searchTerm: String, val page: Int = 1)
 }
