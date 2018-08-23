@@ -1,9 +1,7 @@
 <resources>
-  <string name="app_name">My Movies</string>
+  <string name="app_name" translatable="false">My Movies</string>
   <string name="no_wishlist">You have no movies on your wishlist</string>
-  <string name="title_activity_search_movie">SearchMovieActivity</string>
   <string name="no_movies">There are no movies matching your search</string>
-  <string name="title_activity_movie_detail">MovieDetailActivity</string>
   <string name="cast">Cast:</string>
   <string name="director">Director:</string>
   <string name="search_movie">Search movie</string>
