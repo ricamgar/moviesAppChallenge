@@ -36,18 +36,20 @@ class SearchMoviePresenter(
         view?.enableClear(true)
       }
       .debounce(1, TimeUnit.SECONDS, computationThread)
-      .flatMapSingle { searchMovie.execute(SearchMovie.Params(it.first, it.second)) }
+      .flatMapSingle { it ->
+        searchMovie.execute(SearchMovie.Params(it.first, it.second))
+          .doOnError { error -> view?.showError(error) }
+          .onErrorReturn { listOf() }
+      }
       .compose(observableSchedulers())
-      .subscribe(
-        {
-          if (it.isEmpty()) {
-            view?.showEmpty()
-          } else {
-            view?.showMovies(it)
-          }
-          view?.setLoadingVisibility(false)
-        },
-        { view?.showError(it) }))
+      .doOnNext { view?.setLoadingVisibility(false) }
+      .subscribe {
+        if (it.isEmpty()) {
+          view?.showEmpty()
+        } else {
+          view?.showMovies(it)
+        }
+      })
   }
 
   private fun subscribeToClearClicked() {

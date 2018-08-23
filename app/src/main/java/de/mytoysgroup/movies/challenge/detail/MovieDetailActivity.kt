@@ -10,6 +10,7 @@ import de.mytoysgroup.movies.challenge.R
 import de.mytoysgroup.movies.challenge.common.di.InjectedActivity
 import de.mytoysgroup.movies.challenge.common.domain.model.Movie
 import de.mytoysgroup.movies.challenge.common.util.load
+import de.mytoysgroup.movies.challenge.common.util.visibility
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
@@ -76,10 +77,11 @@ class MovieDetailActivity : InjectedActivity(), MovieDetailPresenter.View {
       if (isFavorite) presenter.removeClicked(movie)
       else presenter.addClicked(movie)
     }
+    detailView.visibility(true)
   }
 
   override fun setLoadingVisibility(visible: Boolean) {
-
+    loading.visibility(visible)
   }
 
   companion object {

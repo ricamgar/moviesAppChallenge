@@ -5,4 +5,6 @@
   <string name="cast">Protagonistas:</string>
   <string name="director">Director:</string>
   <string name="search_movie">Buscar películas</string>
+  <string name="unknown_error">Ha habido un problema. Inténtalo otra vez</string>
+  <string name="connection_error">Comprueba tu conexión a internet</string>
 </resources>

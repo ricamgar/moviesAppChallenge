@@ -2,15 +2,18 @@ package de.mytoysgroup.movies.challenge.common.di
 
 import android.app.Activity
 import android.content.Context
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import de.mytoysgroup.movies.challenge.MoviesApp
+import de.mytoysgroup.movies.challenge.R
 import de.mytoysgroup.movies.challenge.common.presenter.BasePresenter
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
+import java.net.ConnectException
 
 abstract class InjectedActivity : AppCompatActivity(), KodeinAware, BasePresenter.View {
 
@@ -36,6 +39,12 @@ abstract class InjectedActivity : AppCompatActivity(), KodeinAware, BasePresente
   }
 
   override fun showError(error: Throwable) {
+    val errorId = when (error) {
+      is ConnectException -> R.string.connection_error
+      else -> R.string.unknown_error
+    }
+    Snackbar.make(findViewById(android.R.id.content),
+      errorId, Snackbar.LENGTH_LONG).show()
     Log.e("ERROR", error.message)
   }
 

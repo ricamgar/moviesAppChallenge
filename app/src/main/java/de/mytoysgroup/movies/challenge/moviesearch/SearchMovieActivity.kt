@@ -3,7 +3,6 @@ package de.mytoysgroup.movies.challenge.moviesearch
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.GridLayoutManager
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -103,12 +102,6 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
     empty.visibility(false)
     resultsList.visibility(false)
     enableClear(false)
-  }
-
-  override fun showError(error: Throwable) {
-    super.showError(error)
-    Snackbar.make(findViewById(android.R.id.content),
-      "Error: ${error.message}", Snackbar.LENGTH_LONG).show()
   }
 
   companion object {

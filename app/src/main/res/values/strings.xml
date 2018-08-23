@@ -7,4 +7,6 @@
   <string name="cast">Cast:</string>
   <string name="director">Director:</string>
   <string name="search_movie">Search movie</string>
+  <string name="unknown_error">There was an error. Try again.</string>
+  <string name="connection_error">Check your internet connection</string>
 </resources>
