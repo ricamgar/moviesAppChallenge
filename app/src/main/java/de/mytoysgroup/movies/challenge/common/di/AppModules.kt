@@ -35,6 +35,7 @@ fun appModule(context: Context) = Kodein.Module {
       val url = it.request().url()
         .newBuilder()
         .addQueryParameter("apikey", "d8ebe432")
+        .addQueryParameter("type", "movie")
         .build()
       val request = it.request().newBuilder().url(url).build()
       it.proceed(request)
