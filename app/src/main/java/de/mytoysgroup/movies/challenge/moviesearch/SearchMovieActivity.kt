@@ -78,13 +78,13 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
 
   override fun showMovies(movies: List<Movie>) {
     adapter.addMovies(movies)
-    empty.visibility(false)
+    emptyTxt.visibility(false)
     resultsList.visibility(true)
   }
 
   override fun showEmpty() {
     if (adapter.itemCount == 0) {
-      empty.visibility(true)
+      emptyTxt.visibility(true)
       resultsList.visibility(false)
     }
   }
@@ -99,7 +99,7 @@ class SearchMovieActivity : InjectedActivity(), SearchMoviePresenter.View {
 
   override fun clearResults() {
     searchEdit.text.clear()
-    empty.visibility(false)
+    emptyTxt.visibility(false)
     resultsList.visibility(false)
     enableClear(false)
   }

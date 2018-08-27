@@ -3,7 +3,6 @@ package de.mytoysgroup.movies.challenge.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import de.mytoysgroup.movies.challenge.R
@@ -28,10 +27,6 @@ class MovieDetailActivity : InjectedActivity(), MovieDetailPresenter.View {
     setContentView(R.layout.activity_movie_detail)
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    fab.setOnClickListener { view ->
-      Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        .setAction("Action", null).show()
-    }
   }
 
   override fun onResume() {
@@ -72,8 +67,8 @@ class MovieDetailActivity : InjectedActivity(), MovieDetailPresenter.View {
       directorTxt.text = director
     }
 
-    fab.isActivated = isFavorite
-    fab.setOnClickListener {
+    favoriteBtn.isActivated = isFavorite
+    favoriteBtn.setOnClickListener {
       if (isFavorite) presenter.removeClicked(movie)
       else presenter.addClicked(movie)
     }

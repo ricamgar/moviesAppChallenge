@@ -26,7 +26,7 @@ class WishlistActivity : InjectedActivity(), WishlistPresenter.View {
     setSupportActionBar(toolbar)
     setupMoviesWishlist()
 
-    fab.setOnClickListener { presenter.onSearchClicked() }
+    searchFab.setOnClickListener { presenter.onSearchClicked() }
     searchBtn.setOnClickListener { presenter.onSearchClicked() }
     presenter.attachView(this)
   }
@@ -53,13 +53,13 @@ class WishlistActivity : InjectedActivity(), WishlistPresenter.View {
   }
 
   override fun showEmpty() {
-    empty.visibility(true)
+    emptyLayout.visibility(true)
     moviesList.visibility(false)
   }
 
   override fun showMovies(movies: List<Movie>) {
     adapter.addMovies(movies)
-    empty.visibility(false)
+    emptyLayout.visibility(false)
     moviesList.visibility(true)
   }
 
@@ -68,6 +68,6 @@ class WishlistActivity : InjectedActivity(), WishlistPresenter.View {
   }
 
   override fun showError(error: Throwable) {
-    Snackbar.make(fab, "Error: ${error.message}", Snackbar.LENGTH_LONG).show()
+    Snackbar.make(searchFab, "Error: ${error.message}", Snackbar.LENGTH_LONG).show()
   }
 }
