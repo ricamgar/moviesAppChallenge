@@ -16,11 +16,12 @@ class SharedPreferencesDataSource(
   private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
   private val moviesListType = Types.newParameterizedType(List::class.java, Movie::class.java)
   private val moviesAdapter = moshi.adapter<List<Movie>>(moviesListType)
+  private val favoritesKey = "favorites"
 
   override fun getAll(): Single<List<Movie>> {
     return Single.fromCallable {
-      if (sharedPreferences.contains("favorites")) {
-        moviesAdapter.fromJson(sharedPreferences.get("favorites", "")!!)
+      if (sharedPreferences.contains(favoritesKey)) {
+        moviesAdapter.fromJson(sharedPreferences.get(favoritesKey, "")!!)
       } else {
         listOf()
       }
@@ -32,7 +33,7 @@ class SharedPreferencesDataSource(
       .map {
         val movies = it.toMutableList()
         movies.add(movie)
-        sharedPreferences.set("favorites", moviesAdapter.toJson(movies))
+        sharedPreferences.set(favoritesKey, moviesAdapter.toJson(movies))
       }.toCompletable()
   }
 
@@ -41,7 +42,7 @@ class SharedPreferencesDataSource(
       .map { movies ->
         val mutableList = movies.toMutableList()
         mutableList.removeAll { it.id == movie.id }
-        sharedPreferences.set("favorites", moviesAdapter.toJson(mutableList))
+        sharedPreferences.set(favoritesKey, moviesAdapter.toJson(mutableList))
       }.toCompletable()
   }
 
