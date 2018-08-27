@@ -25,11 +25,9 @@ abstract class EndlessRecyclerOnScrollListener(
     val totalItemCount = mLinearLayoutManager.itemCount
     val firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition()
 
-    if (isLoading) {
-      if (totalItemCount > previousTotal) {
+    if (isLoading && totalItemCount > previousTotal) {
         isLoading = false
         previousTotal = totalItemCount
-      }
     }
     if (!isLoading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
       currentPage++
